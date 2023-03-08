@@ -66,10 +66,36 @@ public class KMeans : MonoBehaviour
             );
         }
     }
+    void GenerateCentroid()
+    {
+        for(int i=0; i<100; i++)
+        {
+            for(int j=0; j<100; j++)
+            {
+                if( Mathf.PerlinNoise(0.05f*i, 0.05f*j) < Random.value )
+                {
+                    GameObject instance = Instantiate(
+                        cube,
+                        new Vector3(
+                            i/10.0f,
+                            0,
+                            j/10.0f
+                        ),
+                        Quaternion.identity
+                    );
+                    this.cubeList.Add(instance);
+
+                    //Renderer renderer = instance.GetComponent<Renderer>();
+                    //this.cubeRendererList.Add(renderer);
+                }
+            }
+        }
+    }
 
     void Start()
     {
         this.GenerateRandomCube();
         this.ClusterCube();
+        this.GenerateCentroid();
     }
 }
